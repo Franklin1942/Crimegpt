@@ -63,7 +63,7 @@ CrimeGPT is an AI-powered platform designed for law enforcement agencies to auto
 1. **Clone the repository**
 ```bash
 git clone <repository-url>
-cd KANAD
+cd Crimegpt
 ```
 
 2. **Configure environment variables**
@@ -125,6 +125,10 @@ psql -U postgres -c "CREATE DATABASE crimegpt;"
 psql -U postgres -d crimegpt -f ../database/schema.sql
 ```
 
+For a quick local run without PostgreSQL, set `DATABASE_URL=sqlite:///./crimegpt.db` in
+`backend/.env`. Tables are created automatically on startup, so `schema.sql` is only
+needed for a managed PostgreSQL deployment.
+
 6. **Seed sample data**
 ```bash
 python scripts/seed_data.py
@@ -174,7 +178,7 @@ After seeding sample data, you can login with:
 ## 📁 Project Structure
 
 ```
-KANAD/
+Crimegpt/
 ├── backend/
 │   ├── app/
 │   │   ├── api/           # API routes
@@ -227,6 +231,10 @@ Once the backend is running, access the interactive API documentation at:
 - **Audit Logs**: `/api/audit/*`
 
 ## 🤖 AI Features
+
+`OPENAI_API_KEY` is optional. When it is not set (or the API call fails) the backend falls back
+to a built-in rule-based engine for classification, entity extraction, timeline building, legal
+recommendations and the copilot, so the whole platform runs offline.
 
 ### Crime Classification
 The AI engine automatically classifies crimes into categories:
